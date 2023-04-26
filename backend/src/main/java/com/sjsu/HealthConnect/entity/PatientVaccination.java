@@ -1,9 +1,12 @@
 package com.sjsu.HealthConnect.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.Date;
 
 @Entity
+@Data
 @Table(name = "patient_vaccination")
 public class PatientVaccination {
 
@@ -14,6 +17,10 @@ public class PatientVaccination {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private User patient;
+
+    @ManyToOne
+    @JoinColumn(name = "doctor_id")
+    private User doctor;
 
     @ManyToOne
     @JoinColumn(name = "vaccine_id")

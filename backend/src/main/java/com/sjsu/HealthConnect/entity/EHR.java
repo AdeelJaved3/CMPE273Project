@@ -1,9 +1,12 @@
 package com.sjsu.HealthConnect.entity;
 
 import jakarta.persistence.*;
-import java.time.LocalDate;
+import lombok.Data;
+
+import java.util.Date;
 
 @Entity
+@Data
 @Table(name = "ehr")
 public class EHR {
 
@@ -17,7 +20,7 @@ public class EHR {
     private User patient;
 
     @Column(name = "date", nullable = false)
-    private LocalDate date;
+    private Date date;
 
     @Column(name = "symptom")
     private String symptom;

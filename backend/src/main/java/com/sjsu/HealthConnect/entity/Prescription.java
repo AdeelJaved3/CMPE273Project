@@ -1,9 +1,12 @@
 package com.sjsu.HealthConnect.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
 import java.util.Date;
 
 @Entity
+@Data
 @Table(name = "prescription")
 public class Prescription {
 

@@ -1,12 +1,17 @@
 package com.sjsu.HealthConnect.entity;
 
+import com.sjsu.HealthConnect.dto.AppointmentStatus;
 import com.sjsu.HealthConnect.utility.AppointmentType;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+import java.time.LocalTime;
 import java.util.Date;
 
 @Entity
 @Table(name = "appointment")
+@Data
 public class Appointment {
 
     @Id
@@ -18,7 +23,7 @@ public class Appointment {
     private User doctor;
 
     @ManyToOne
-    @JoinColumn(name = "patient_id")
+    @JoinColumn(name = "patient_id", nullable = false)
     private User patient;
 
     @Enumerated(EnumType.STRING)
@@ -31,7 +36,7 @@ public class Appointment {
 
     @Column(name = "time", nullable = false)
     @Temporal(TemporalType.TIME)
-    private Date time;
+    private LocalTime time;
 
     @Column(name = "reason_for_visit")
     private String reasonForVisit;
@@ -48,7 +53,7 @@ public class Appointment {
     private Date nextDoseDate;
 
     @Column(name = "status", nullable = false)
-    private String status;
+    private AppointmentStatus status;
 
     // constructors, getters and setters
 }

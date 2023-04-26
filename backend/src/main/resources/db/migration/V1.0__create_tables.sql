@@ -15,7 +15,7 @@ create table user (
 );
 
 create table doctor_profile (
-  id int not null,
+  id int not null AUTO_INCREMENT,
   experience int not null,
   specialization varchar(50) not null,
   qualification varchar(50) not null,
@@ -29,7 +29,7 @@ create table doctor_profile (
 );
 
 create table patient_profile (
-  id int not null,
+  id int not null AUTO_INCREMENT,
   address varchar(100) not null,
   allergies text,
   additional_info text,
@@ -97,7 +97,8 @@ CREATE TABLE appointment (
 
 CREATE TABLE patient_vaccination (
   id INT NOT NULL AUTO_INCREMENT,
-  patient_id INT,
+  patient_id INT NOT NULL,
+  doctor_id INT NOT NULL,
   vaccine_id int NOT NULL,
   dose_number INT NOT NULL,
   date_administered DATE NOT NULL,

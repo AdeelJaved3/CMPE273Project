@@ -1,10 +1,12 @@
 package com.sjsu.HealthConnect.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 
 @Entity
 @Table(name = "vaccine")
+@Data
 public class Vaccine {
 
     @Id
