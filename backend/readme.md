@@ -51,11 +51,30 @@ java -jar target/Healthconnect-<version>.jar
 ```
 http://localhost:8080
 ```
+## Usage
+Once you've started the application, you can use it to manage patient appointments and vaccinations. Here are some of the key features:
 
+### Appointments
+- Patients can create new appointments with doctors by selecting the appointment type, date, and time.
+- Doctors can view their appointment schedule and manage appointments by updating the appointment status or cancelling appointments.
+- Patients can view their upcoming appointments and receive reminders before their appointments.
+### Vaccinations
+- Doctors can administer vaccinations to patients and record the date and dose number.
+- Patients can view their vaccination history, including the vaccine name, date administered, and dose number.
+- Patients can receive reminders before their next vaccination is due.
 
+## Technologies Used
+HealthConnect is built using the following technologies:
 
-## Contributing
-Contributions to HealthConnect are always welcome! Please create a pull request with your changes.
+- Java
+- Spring Boot
+- Hibernate
+- Flyway
+- MySQL
+- Spring JPA
+
+## Contributers
+- Lavanya
 
 ## License
 HealthConnect is released under the MIT License.
