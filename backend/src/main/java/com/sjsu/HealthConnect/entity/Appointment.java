@@ -6,8 +6,8 @@ import com.sjsu.HealthConnect.utility.AppointmentType;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.sql.Date;
 import java.time.LocalTime;
-import java.util.Date;
 
 @Entity
 @Table(name = "appointment")

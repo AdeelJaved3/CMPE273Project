@@ -1,4 +1,4 @@
-package com.sjsu.HealthConnect;
+package com.sjsu.HealthConnect.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

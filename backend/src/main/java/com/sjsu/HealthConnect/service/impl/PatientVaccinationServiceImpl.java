@@ -4,8 +4,11 @@ import java.util.List;
 import java.util.Optional;
 
 import com.sjsu.HealthConnect.entity.User;
+import com.sjsu.HealthConnect.entity.Vaccine;
 import com.sjsu.HealthConnect.repositories.PatientVaccinationRepository;
 import com.sjsu.HealthConnect.repositories.UserRepository;
+import com.sjsu.HealthConnect.repositories.VaccineRepository;
+import com.sjsu.HealthConnect.utility.CommonUtilities;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +25,12 @@ public class PatientVaccinationServiceImpl implements PatientVaccinationService 
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private CommonUtilities utilities;
+
+    @Autowired
+    private VaccineRepository vaccineRepository;
 
     @Override
     public ResponseEntity<Object> getAllPatientVaccinations() {
@@ -57,6 +66,13 @@ public class PatientVaccinationServiceImpl implements PatientVaccinationService 
     @Override
     public ResponseEntity<Object> createPatientVaccination(PatientVaccination PatientVaccination) {
         PatientVaccination vaccination = patVacRepository.save(PatientVaccination);
+        User patient = userRepository.findById(vaccination.getPatient().getId()).get();
+        User doctor = userRepository.findById(vaccination.getDoctor().getId()).get();
+        Vaccine vaccine = vaccineRepository.findById(vaccination.getVaccine().getId()).get();
+        vaccination.setPatient(patient);
+        vaccination.setDoctor(doctor);
+        vaccination.setVaccine(vaccine);
+        utilities.sendVaccination(vaccination);
         return new ResponseEntity<>(vaccination, HttpStatus.CREATED);
     }
 

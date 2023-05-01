@@ -90,6 +90,7 @@ public class AppointmentServiceImpl implements AppointmentService {
         if(appointment.isPresent()){
             Appointment app = appointment.get();
             app.setStatus(AppointmentStatus.CANCELLED);
+            appointmentRepository.save(app);
             response = new ResponseEntity<>("Appointment cancelled", HttpStatus.OK);
         } else {
             response = new ResponseEntity<>("No such appointment", HttpStatus.NOT_FOUND);
