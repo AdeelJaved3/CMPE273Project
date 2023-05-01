@@ -36,8 +36,8 @@ public class CronJob {
             "Best regards,\n" +
             "HealthConnect Team";
 
-    //@Scheduled(cron = "0 0 0 * * *") // every day
-    @Scheduled(cron = "*/30 * * * * *") // 10 seconds
+    @Scheduled(cron = "0 0 0 * * *") // every day
+    //@Scheduled(cron = "*/30 * * * * *") // 10 seconds
     public void runJob() throws ParseException {
 
        /* long currentTime = System.currentTimeMillis();*//**//*
