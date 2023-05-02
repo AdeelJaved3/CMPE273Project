@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService {
         if(user.isPresent()){
             User u = user.get();
             if(u.getPassword().equals(loginDTO.getPassword())){
-                response = new ResponseEntity<>("Successful login", HttpStatus.OK);
+                response = new ResponseEntity<>(user, HttpStatus.OK);
             } else {
                 response = new ResponseEntity<>("Bad credentials", HttpStatus.UNAUTHORIZED);
             }
