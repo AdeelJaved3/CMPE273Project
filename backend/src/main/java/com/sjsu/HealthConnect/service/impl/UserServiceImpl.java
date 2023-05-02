@@ -12,6 +12,7 @@ import com.sjsu.HealthConnect.repositories.DoctorProfileRepository;
 import com.sjsu.HealthConnect.repositories.PatientProfileRepository;
 import com.sjsu.HealthConnect.repositories.UserRepository;
 import com.sjsu.HealthConnect.service.UserService;
+import com.sjsu.HealthConnect.utility.LoginDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -144,5 +145,22 @@ public class UserServiceImpl implements UserService {
             doctorDTOS.add(doctorDTO);
         }
         return new ResponseEntity<>(doctorDTOS, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<Object> login(LoginDTO loginDTO) {
+        Optional<User> user = userRepository.findByUserName(loginDTO.getUsername());
+        ResponseEntity<Object> response;
+        if(user.isPresent()){
+            User u = user.get();
+            if(u.getPassword().equals(loginDTO.getPassword())){
+                response = new ResponseEntity<>("Successful login", HttpStatus.OK);
+            } else {
+                response = new ResponseEntity<>("Bad credentials", HttpStatus.UNAUTHORIZED);
+            }
+        } else {
+            response = new ResponseEntity<>("User not found", HttpStatus.NOT_FOUND);
+        }
+        return response;
     }
 }
