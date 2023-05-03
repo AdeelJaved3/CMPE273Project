@@ -71,8 +71,11 @@ public class AppointmentServiceImpl implements AppointmentService {
         ResponseEntity<Object> response;
         if(appointment1.isPresent()){
             if(isValidAppointment(appointment)){
-                appointment.setStatus(AppointmentStatus.SCHEDULED);
-                Appointment app = appointmentRepository.save(appointment);
+                Appointment app = appointment1.get();
+                app.setStatus(AppointmentStatus.SCHEDULED);
+                app.setDate(appointment.getDate());
+                app.setTime(appointment.getTime());
+                appointmentRepository.save(app);
                 response = new ResponseEntity<>(app, HttpStatus.OK);
             } else {
                 response = new ResponseEntity<>("Invalid appointment", HttpStatus.BAD_REQUEST);
@@ -103,8 +106,15 @@ public class AppointmentServiceImpl implements AppointmentService {
         Optional<User> user = userRepository.findById(userId);
         ResponseEntity<Object> response;
         if(user.isPresent()){
-            List<Appointment> appointmentList = appointmentRepository.findAllByPatient(user.get());
-            response = new ResponseEntity<>(appointmentList, HttpStatus.OK);
+            User u = user.get();
+            if(u.getRole().equals("patient")){
+                List<Appointment> appointmentList = appointmentRepository.findAllByPatient(u);
+                response = new ResponseEntity<>(appointmentList, HttpStatus.OK);
+            } else {
+                List<Appointment> appointmentList = appointmentRepository.findAllByDoctor(u);
+                response = new ResponseEntity<>(appointmentList, HttpStatus.OK);
+            }
+
         } else {
             response = new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
         }
