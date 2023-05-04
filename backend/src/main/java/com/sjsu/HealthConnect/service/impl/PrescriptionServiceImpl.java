@@ -29,8 +29,13 @@ public class PrescriptionServiceImpl implements PrescriptionService {
         Optional<User> user = userRepository.findById(id);
         ResponseEntity<Object> response;
         if(user.isPresent()){
-            List<Prescription> prescriptions = prescriptionRepository.findByPatient(user.get());
-            response = new ResponseEntity<>(prescriptions, HttpStatus.OK);
+            if(user.get().getRole().equals("patient")){
+                List<Prescription> prescriptions = prescriptionRepository.findByPatient(user.get());
+                response = new ResponseEntity<>(prescriptions, HttpStatus.OK);
+            } else {
+                List<Prescription> prescriptions = prescriptionRepository.findByDoctor(user.get());
+                response = new ResponseEntity<>(prescriptions, HttpStatus.OK);
+            }
         } else {
             response = new ResponseEntity<>("No such user", HttpStatus.NOT_FOUND);
         }

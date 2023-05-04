@@ -11,6 +11,8 @@ import java.util.Optional;
 @Repository
 public interface PrescriptionRepository extends JpaRepository<Prescription, Long> {
     List<Prescription> findByPatient(User user);
+
+    List<Prescription> findByDoctor(User user);
     // add custom methods here if needed
 }
 
