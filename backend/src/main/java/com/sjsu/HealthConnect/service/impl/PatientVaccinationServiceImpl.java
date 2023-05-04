@@ -3,8 +3,10 @@ package com.sjsu.HealthConnect.service.impl;
 import java.util.List;
 import java.util.Optional;
 
+import com.sjsu.HealthConnect.entity.Appointment;
 import com.sjsu.HealthConnect.entity.User;
 import com.sjsu.HealthConnect.entity.Vaccine;
+import com.sjsu.HealthConnect.repositories.AppointmentRepository;
 import com.sjsu.HealthConnect.repositories.PatientVaccinationRepository;
 import com.sjsu.HealthConnect.repositories.UserRepository;
 import com.sjsu.HealthConnect.repositories.VaccineRepository;
@@ -31,6 +33,9 @@ public class PatientVaccinationServiceImpl implements PatientVaccinationService 
 
     @Autowired
     private VaccineRepository vaccineRepository;
+
+    @Autowired
+    private AppointmentRepository appointmentRepository;
 
     @Override
     public ResponseEntity<Object> getAllPatientVaccinations() {
@@ -64,14 +69,18 @@ public class PatientVaccinationServiceImpl implements PatientVaccinationService 
     }
 
     @Override
-    public ResponseEntity<Object> createPatientVaccination(PatientVaccination PatientVaccination) {
-        PatientVaccination vaccination = patVacRepository.save(PatientVaccination);
-        User patient = userRepository.findById(vaccination.getPatient().getId()).get();
-        User doctor = userRepository.findById(vaccination.getDoctor().getId()).get();
-        Vaccine vaccine = vaccineRepository.findById(vaccination.getVaccine().getId()).get();
+    public ResponseEntity<Object> createPatientVaccination(int appId) {
+        Appointment appointment = appointmentRepository.findById(appId).get();
+        User patient = userRepository.findById(appointment.getPatient().getId()).get();
+        User doctor = userRepository.findById(appointment.getDoctor().getId()).get();
+        Vaccine vaccine = vaccineRepository.findById(appointment.getVaccine().getId()).get();
+        PatientVaccination vaccination = new PatientVaccination();
         vaccination.setPatient(patient);
         vaccination.setDoctor(doctor);
         vaccination.setVaccine(vaccine);
+        vaccination.setDoseNumber(appointment.getDoseNumber());
+        vaccination.setDateAdministered(appointment.getDate());
+        vaccination.setNextDoseDate(appointment.getNextDoseDate());
         utilities.sendVaccination(vaccination);
         return new ResponseEntity<>(vaccination, HttpStatus.CREATED);
     }

@@ -2,6 +2,7 @@ package com.sjsu.HealthConnect.controllers;
 
 import com.sjsu.HealthConnect.entity.PatientVaccination;
 import com.sjsu.HealthConnect.service.PatientVaccinationService;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,13 @@ public class PatientVaccinationController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<Object> addPatientVaccination(@RequestBody PatientVaccination patientVaccination) {
-        return vaccinationService.createPatientVaccination(patientVaccination);
+    public ResponseEntity<Object> addPatientVaccination(@RequestBody VaccinationDTO vaccinationDTO) {
+        return vaccinationService.createPatientVaccination(vaccinationDTO.getAppId());
     }
 
+}
+
+@Data
+class VaccinationDTO{
+    private int appId;
 }

@@ -5,9 +5,11 @@ import com.sjsu.HealthConnect.dto.AppointmentStatus;
 import com.sjsu.HealthConnect.entity.Appointment;
 import com.sjsu.HealthConnect.entity.DoctorProfile;
 import com.sjsu.HealthConnect.entity.User;
+import com.sjsu.HealthConnect.entity.Vaccine;
 import com.sjsu.HealthConnect.repositories.AppointmentRepository;
 import com.sjsu.HealthConnect.repositories.DoctorProfileRepository;
 import com.sjsu.HealthConnect.repositories.UserRepository;
+import com.sjsu.HealthConnect.repositories.VaccineRepository;
 import com.sjsu.HealthConnect.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,10 +35,17 @@ public class AppointmentServiceImpl implements AppointmentService {
     @Autowired
     private DoctorProfileRepository doctorProfileRepository;
 
+    @Autowired
+    private VaccineRepository vaccineRepository;
+
     @Override
     public ResponseEntity<Object> createAppointment(Appointment appointment) {
         ResponseEntity<Object> response;
         if(isValidAppointment(appointment)){
+            if(appointment.getAppointmentType().equals("VACCINE")) {
+                Vaccine vaccine = vaccineRepository.findById(appointment.getVaccine().getId()).get();
+                //appointment.setNextDoseDate(vaccine.getNextDosage());
+            }
             appointment.setStatus(AppointmentStatus.SCHEDULED);
             Appointment app = appointmentRepository.save(appointment);
             response = new ResponseEntity<>(app, HttpStatus.CREATED);

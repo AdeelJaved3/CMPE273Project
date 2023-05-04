@@ -13,5 +13,5 @@ public interface PatientVaccinationService {
 
     ResponseEntity<Object> getPatientVaccinationByPatient(Long patient_id);
 
-    ResponseEntity<Object> createPatientVaccination(PatientVaccination PatientVaccination);
+    ResponseEntity<Object> createPatientVaccination(int appId);
 }
