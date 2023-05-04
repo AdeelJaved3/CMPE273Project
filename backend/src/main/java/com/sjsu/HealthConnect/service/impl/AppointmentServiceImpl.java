@@ -1,5 +1,6 @@
 package com.sjsu.HealthConnect.service.impl;
 
+import com.sjsu.HealthConnect.dto.AppointmentDTO;
 import com.sjsu.HealthConnect.dto.AppointmentStatus;
 import com.sjsu.HealthConnect.entity.Appointment;
 import com.sjsu.HealthConnect.entity.DoctorProfile;
@@ -66,15 +67,15 @@ public class AppointmentServiceImpl implements AppointmentService {
     }
 
     @Override
-    public ResponseEntity<Object> updateAppointment(int id, Appointment appointment) {
+    public ResponseEntity<Object> updateAppointment(int id, AppointmentDTO appointment) {
         Optional<Appointment> appointment1 = appointmentRepository.findById(id);
         ResponseEntity<Object> response;
         if(appointment1.isPresent()){
-            if(isValidAppointment(appointment)){
-                Appointment app = appointment1.get();
-                app.setStatus(AppointmentStatus.SCHEDULED);
-                app.setDate(appointment.getDate());
-                app.setTime(appointment.getTime());
+            Appointment app = appointment1.get();
+            app.setStatus(AppointmentStatus.SCHEDULED);
+            app.setDate(appointment.getDate());
+            app.setTime(appointment.getTime());
+            if(isValidAppointment(app)){
                 appointmentRepository.save(app);
                 response = new ResponseEntity<>(app, HttpStatus.OK);
             } else {

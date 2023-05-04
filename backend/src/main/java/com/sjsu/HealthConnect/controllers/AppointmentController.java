@@ -1,6 +1,7 @@
 package com.sjsu.HealthConnect.controllers;
 
 import com.sjsu.HealthConnect.dto.AppSearchDTO;
+import com.sjsu.HealthConnect.dto.AppointmentDTO;
 import com.sjsu.HealthConnect.entity.Appointment;
 import com.sjsu.HealthConnect.service.AppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AppointmentController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateAppointment(@PathVariable(value = "id") int id, @RequestBody Appointment appointment) {
+    public ResponseEntity<Object> updateAppointment(@PathVariable(value = "id") int id, @RequestBody AppointmentDTO appointment) {
         return appointmentService.updateAppointment(id, appointment);
     }
 
