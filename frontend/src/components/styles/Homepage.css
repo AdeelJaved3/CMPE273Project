@@ -1,0 +1,17 @@
+.homepage{
+    margin: auto;
+    width: 50%;
+    text-align: center;
+    border: 3px solid green;
+    padding: 10px;
+
+    background-image: url('./backgroundimg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.background-image {
+    background-image: url('./backgroundimg.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

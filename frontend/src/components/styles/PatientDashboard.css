@@ -1,0 +1,27 @@
+.Table {
+    border-spacing: 0;
+    border: 100px solid #786ae6;
+    width: 100%;
+}
+
+thead {
+    background-color: #2d733b;
+}
+  
+tr:nth-child(2n) {
+    background-color: #32e656;
+}
+
+tr:nth-child(2n-1) {
+    background-color: #6bd4eb;
+}
+
+
+th {
+    padding: 15px;
+    background-color:#c5e276
+}
+
+td {
+    padding: 5px 10px;
+}
