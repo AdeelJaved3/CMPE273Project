@@ -7,6 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalTime;
+import java.util.Date;
+
 @RestController
 @RequestMapping("/api/v1/patient-vaccinations")
 public class PatientVaccinationController {
@@ -31,7 +34,11 @@ public class PatientVaccinationController {
 
     @PostMapping("/")
     public ResponseEntity<Object> addPatientVaccination(@RequestBody VaccinationDTO vaccinationDTO) {
-        return vaccinationService.createPatientVaccination(vaccinationDTO.getAppId());
+        System.out.println(LocalTime.now());
+        ResponseEntity<Object> resp = vaccinationService.createPatientVaccination(vaccinationDTO.getAppId());
+        System.out.println(LocalTime.now());
+        return resp;
+
     }
 
 }
