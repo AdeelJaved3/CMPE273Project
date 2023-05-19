@@ -9,7 +9,9 @@ import java.util.List;
 
 @Repository
 public interface EHRRepository extends JpaRepository<EHR, Long> {
+    /*
+    This function returns list of ehrs for a given patient
+     */
     List<EHR> findByPatient(User user);
 
 }
-

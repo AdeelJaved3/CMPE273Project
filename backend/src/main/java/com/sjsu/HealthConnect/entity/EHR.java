@@ -33,6 +33,4 @@ public class EHR {
 
     @Column(name = "notes")
     private String notes;
-
-    // constructors, getters, setters
 }
